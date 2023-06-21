@@ -1,8 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
              x:Class="Monoregion.App.App">
-    <Application.Resources>
+    
+    <prism:PrismApplication.Resources>
+        
+        <ResourceDictionary>
 
-    </Application.Resources>
-</Application>
+            <Color x:Key="White">#ffffe5</Color>
+            <Color x:Key="Gray">#9a9a7c</Color>
+            <Color x:Key="Black">#221</Color>
+
+            <Color x:Key="Primary">#c21b78</Color>
+            <Color x:Key="Secondary">#7fd63c</Color>
+
+            <Style TargetType="Label"
+                   x:Key="tstyle_i1">
+
+                <Setter Property="FontSize"
+                        Value="22"/>
+
+                <Setter Property="FontFamily"
+                        Value="MMedium"/>
+
+                <Setter Property="TextColor"
+                        Value="{DynamicResource Black}"/>
+
+            </Style>
+
+            <Style TargetType="Label"
+                   x:Key="tstyle_i2">
+
+                <Setter Property="FontSize"
+                        Value="16"/>
+
+                <Setter Property="FontFamily"
+                        Value="MMedium"/>
+
+                <Setter Property="TextColor"
+                        Value="{DynamicResource Black}"/>
+
+            </Style>
+
+            <Style TargetType="Label"
+                   x:Key="tstyle_i3">
+
+                <Setter Property="FontSize"
+                        Value="14"/>
+
+                <Setter Property="FontFamily"
+                        Value="MMedium"/>
+
+                <Setter Property="TextColor"
+                        Value="{DynamicResource Black}"/>
+
+            </Style>
+
+        </ResourceDictionary>
+        
+    </prism:PrismApplication.Resources>
+    
+</prism:PrismApplication>

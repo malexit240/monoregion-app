@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Monoregion.App.Views"
+                       xmlns:viewmodels="clr-namespace:Monoregion.App.ViewModels"
+                       xmlns:direction="clr-namespace:Monoregion.App.Entites"
+                       x:Class="Monoregion.App.Views.DirectionsPage"
+                       x:DataType="viewmodels:DirectionsPageViewModel">
+
+    <Grid VerticalOptions="Fill"
+          HorizontalOptions="Fill"
+          BackgroundColor="{DynamicResource White}"
+          Padding="0, 24">
+
+        <CollectionView ItemsSource="{Binding Directions}">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="direction:DirectionViewModel">
+
+                    <SwipeView>
+
+                        <SwipeView.RightItems>
+
+                            <SwipeItem IconImageSource="delete.png"
+                                       BackgroundColor="OrangeRed"
+                                       Command="{Binding DeleteTappedCommand}"
+                                       CommandParameter="{Binding .}"/>
+
+                        </SwipeView.RightItems>
+
+                        <StackLayout Padding="24, 0"
+                                     Spacing="0"
+                                     BackgroundColor="{DynamicResource White}">
+
+                            <StackLayout.GestureRecognizers>
+
+                                <TapGestureRecognizer Command="{Binding TappedCommand}"
+                                                      CommandParameter="{Binding .}"/>
+
+                            </StackLayout.GestureRecognizers>
+
+                            <Label Text="{Binding Name}"
+                                   Style="{DynamicResource tstyle_i1}"
+                                   Margin="8, 8, 0, 7"/>
+
+                            <BoxView Color="{DynamicResource Black}"
+                                     HorizontalOptions="Fill"
+                                     HeightRequest="2"/>
+
+                        </StackLayout>
+
+                    </SwipeView>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <Frame VerticalOptions="End"
+               HorizontalOptions="Fill"
+               HeightRequest="70"
+               Margin="48, 24"
+               CornerRadius="35"
+               Padding="1"
+               BackgroundColor="#20000000"
+               BorderColor="{DynamicResource Gray}">
+
+            <StackLayout Orientation="Horizontal">
+
+                <Frame VerticalOptions="Fill"
+                       HorizontalOptions="End"
+                       HeightRequest="70"
+                       WidthRequest="70"
+                       CornerRadius="35"
+                       BackgroundColor="{DynamicResource Primary}"
+                       Padding="0">
+
+                    <Button BackgroundColor="{DynamicResource Primary}"
+                            Text="⏏︎"
+                            Padding="0"
+                            TextTransform="None"
+                            TextColor="{DynamicResource White}"
+                            Rotation="180"
+                            FontSize="36"
+                            Command="{Binding MakeBackUpCommand}"/>
+
+                </Frame>
+
+                <Frame VerticalOptions="Center"
+                       HorizontalOptions="End"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       CornerRadius="25"
+                       BackgroundColor="{DynamicResource Primary}"
+                       Padding="0">
+
+                    <Button BackgroundColor="{DynamicResource Primary}"
+                            Text="⏏︎"
+                            TextColor="{DynamicResource White}"
+                            FontSize="28"
+                            Padding="0"
+                            Command="{Binding RestoreDBCommand}"/>
+
+                </Frame>
+
+                <Label Text="{Binding DbVersion}"
+                       TextColor="{DynamicResource White}"
+                       FontSize="16"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"/>
+
+                <Frame VerticalOptions="Fill"
+                       HorizontalOptions="EndAndExpand"
+                       HeightRequest="70"
+                       WidthRequest="70"
+                       CornerRadius="35"
+                       BackgroundColor="{DynamicResource Secondary}"
+                       Padding="0">
+
+                    <Button BackgroundColor="{DynamicResource Secondary}"
+                            ImageSource="add.png"
+                            Command="{Binding AddDirectionTappedCommand}"/>
+
+                </Frame>
+
+            </StackLayout>
+
+        </Frame>
+
+        <Image Source="icon"
+               Opacity="0.2"
+               VerticalOptions="Start"
+               HorizontalOptions="Center"
+               InputTransparent="True"
+               Margin="0, -24, 0, 0"
+               WidthRequest="48"/>
+
+    </Grid>
+
+</views:BaseContentPage>

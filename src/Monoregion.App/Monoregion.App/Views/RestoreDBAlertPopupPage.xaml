@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Monoregion.App.Views"
+                       x:Class="Monoregion.App.Views.RestoreDBAlertPopupPage"
+                       BackgroundColor="Transparent">
+
+    <Frame Padding="12"
+           BackgroundColor="{DynamicResource White}"
+           VerticalOptions="CenterAndExpand"
+           HorizontalOptions="CenterAndExpand"
+           BorderColor="{DynamicResource Gray}"
+           CornerRadius="12">
+
+        <StackLayout Spacing="6">
+
+            <Label Text="Восстановить БД?"
+                   Style="{DynamicResource tstyle_i1}"/>
+
+            <BoxView Color="{DynamicResource Gray}"
+                     Margin="-12, 0"
+                     HeightRequest="1"/>
+
+            <Grid ColumnSpacing="0"
+                  WidthRequest="240"
+                  ColumnDefinitions="*, *">
+
+                <Button Text="Нет"
+                        Style="{DynamicResource tstyle_i1}"
+                        TextTransform="None"
+                        Command="{Binding CancelTappedCommand}"
+                        BackgroundColor="{DynamicResource White}"
+                        BorderColor="{DynamicResource Gray}"
+                        CornerRadius="6"
+                        Margin="0"
+                        BorderWidth="1"
+                        Grid.Column="0"/>
+
+                <Button Text="Да"
+                        Command="{Binding OkTappedCommand}"
+                        Style="{DynamicResource tstyle_i1}"
+                        BackgroundColor="{DynamicResource White}"
+                        BorderColor="{DynamicResource Gray}"
+                        BorderWidth="1"
+                        CornerRadius="6"
+                        Margin="0"
+                        TextTransform="None"
+                        HorizontalOptions="EndAndExpand"
+                        Grid.Column="1"/>
+
+            </Grid>
+
+        </StackLayout>
+
+    </Frame>
+
+</views:BaseContentPage>

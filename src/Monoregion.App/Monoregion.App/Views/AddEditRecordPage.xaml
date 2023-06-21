@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Monoregion.App.Views"
+                       xmlns:viewmodels="clr-namespace:Monoregion.App.ViewModels"
+                       x:Class="Monoregion.App.Views.AddEditRecordPage"
+                       x:DataType="viewmodels:AddEditRecordPageViewModel">
+
+    <ScrollView BackgroundColor="{DynamicResource White}">
+
+        <StackLayout VerticalOptions="Fill"
+                     HorizontalOptions="Fill"
+                     Spacing="0"
+                     Padding="10, 10">
+
+            <Image Source="icon"
+                   Opacity="1"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center"
+                   InputTransparent="True"
+                   Margin="0, -10, 0, 0"
+                   WidthRequest="48"/>
+
+            <Grid HeightRequest="100"
+                  ColumnDefinitions="0.7*, *">
+
+                <Frame Padding="0, 10"
+                       BorderColor="{StaticResource Gray}"
+                       BackgroundColor="Transparent">
+                    
+                    <StackLayout VerticalOptions="CenterAndExpand">
+
+                        <Label Text="{Binding Record.CreationTime, StringFormat='{0:dddd}'}"
+                               HorizontalOptions="Center"
+                               Style="{DynamicResource tstyle_i1}"/>
+
+                        <Label Text="{Binding Record.CreationTime, StringFormat='{0:dd MMMM}'}"
+                               HorizontalOptions="Center"
+                               Style="{DynamicResource tstyle_i1}"/>
+
+                        <Label Text="{Binding Record.CreationTime, StringFormat='{0:HH:mm}'}"
+                               HorizontalOptions="Center"
+                               Style="{DynamicResource tstyle_i1}"/>
+
+                    </StackLayout>
+                    
+                </Frame>
+
+                <Button Text="Сохранить"
+                        Style="{DynamicResource tstyle_i1}"
+                        TextTransform="None"
+                        BackgroundColor="{DynamicResource White}"
+                        BorderColor="{DynamicResource Gray}"
+                        VerticalOptions="CenterAndExpand"
+                        CornerRadius="6"
+                        Margin="0"
+                        BorderWidth="1"
+                        Command="{Binding SaveTappedCommand}"
+                        Grid.Column="1"/>
+
+            </Grid>
+
+            <Entry Placeholder="Заголовок"
+                   MaxLength="64"
+                   Text="{Binding Record.Name}"
+                   Style="{DynamicResource tstyle_i1}"/>
+
+            <Frame HeightRequest="10000"
+                   Padding="0"
+                   HasShadow="False"
+                   CornerRadius="10"
+                   BackgroundColor="{DynamicResource White}"
+                   BorderColor="{DynamicResource Gray}">
+
+                <Editor Placeholder="Текст..."
+                        Text="{Binding Record.Content}"
+                        Style="{DynamicResource tstyle_i1}"
+                        VerticalOptions="FillAndExpand"/>
+
+            </Frame>
+
+        </StackLayout>
+
+    </ScrollView>
+
+</views:BaseContentPage>

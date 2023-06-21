@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Monoregion.App.Views"
+                       xmlns:viewmodels="clr-namespace:Monoregion.App.ViewModels"
+                       xmlns:record="clr-namespace:Monoregion.App.Entites"
+                       x:Class="Monoregion.App.Views.RecordsPage"
+                       x:DataType="viewmodels:RecordsPageViewModel">
+
+    <Grid VerticalOptions="Fill"
+          HorizontalOptions="Fill"
+          Padding="0, 24"
+          BackgroundColor="{DynamicResource White}">
+
+        <CollectionView ItemsSource="{Binding Direction.Records}">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="record:RecordViewModel">
+
+                    <SwipeView>
+
+                        <SwipeView.RightItems>
+
+                            <SwipeItem IconImageSource="delete.png"
+                                       BackgroundColor="OrangeRed"
+                                       Command="{Binding DeleteTappedCommand}"
+                                       CommandParameter="{Binding .}"/>
+
+                        </SwipeView.RightItems>
+
+                        <StackLayout Padding="24, 0"
+                                     Spacing="0"
+                                     BackgroundColor="{DynamicResource White}">
+
+                            <StackLayout.GestureRecognizers>
+
+                                <TapGestureRecognizer Command="{Binding TappedCommand}"
+                                                      CommandParameter="{Binding .}"/>
+
+                            </StackLayout.GestureRecognizers>
+
+                            <Label Text="{Binding Name}"
+                                   Style="{DynamicResource tstyle_i1}"
+                                   Margin="8, 8, 0, 7"/>
+
+                            <BoxView Color="{DynamicResource Black}"
+                                     HorizontalOptions="Fill"
+                                     HeightRequest="2"/>
+
+                        </StackLayout>
+
+                    </SwipeView>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <Frame VerticalOptions="End"
+               HorizontalOptions="End"
+               Margin="48, 24"
+               HeightRequest="70"
+               WidthRequest="70"
+               CornerRadius="35"
+               BackgroundColor="{DynamicResource Secondary}"
+               Padding="0">
+
+            <Button BackgroundColor="{DynamicResource Secondary}"
+                    ImageSource="add.png"
+                    Command="{Binding AddRecordTappedCommand}"/>
+
+        </Frame>
+
+        <Image Source="icon"
+               Opacity="0.2"
+               VerticalOptions="Start"
+               HorizontalOptions="Center"
+               InputTransparent="True"
+               Margin="0, -24, 0, 0"
+               WidthRequest="48"/>
+
+    </Grid>
+
+</views:BaseContentPage>
