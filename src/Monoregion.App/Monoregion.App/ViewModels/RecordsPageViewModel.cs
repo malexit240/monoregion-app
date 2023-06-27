@@ -47,28 +47,11 @@ namespace Monoregion.App.ViewModels
 
         #endregion
 
-        private async Task OnDeleteRecordTappedCommandAsync(RecordViewModel record)
-        {
-            await _recordsService.DeleteRecordAsync(record.ToModel());
-            await LoadRecordsAsync();
-        }
-
-        private Task OnRecordTappedCommandAsync(RecordViewModel record)
-        {
-            var parameters = new NavigationParameters()
-            {
-                { Constants.Navigation.DIRECTION_VIEW_MODEL,Direction.ToModel() },
-                { Constants.Navigation.RECORD_VIEW_MODEL, record.ToModel() }
-            };
-
-            return NavigationService.NavigateAsync(nameof(AddEditRecordPage), parameters);
-        }
-
         private Task OnAddRecordTappedCommandAsync()
         {
             var parameters = new NavigationParameters()
             {
-                { Constants.Navigation.DIRECTION_VIEW_MODEL,Direction.ToModel() }
+                { Constants.Navigation.DIRECTION_VIEW_MODEL, Direction.ToModel() }
             };
 
             return NavigationService.NavigateAsync(nameof(AddEditRecordPage), parameters);
@@ -99,20 +82,32 @@ namespace Monoregion.App.ViewModels
             _wasInitializeCalled = false;
         }
 
+        #region -- Private Helpers --
+
         private async Task LoadRecordsAsync()
         {
             var records = await _recordsService.GetRecordsForDirectionAsync(Direction.Id);
-            //var directions = await _directionService.GetAllDirectionsAsync();
-
-            //Direction = directions.FirstOrDefault(d => d.Id == Direction.Id).ToViewModel(null, null);
 
             Direction.Records = new ObservableCollection<RecordViewModel>(records.OrderByDescending(r => r.CreationTime).Select(r => r.ToViewModel(RecordTappedCommand, DeleteRecordTappedCommand)));
-
-            //foreach (var record in Direction.Records)
-            //{
-            //    record.TappedCommand = RecordTappedCommand;
-            //    record.DeleteTappedCommand = DeleteRecordTappedCommand;
-            //}
         }
+
+        private async Task OnDeleteRecordTappedCommandAsync(RecordViewModel record)
+        {
+            await _recordsService.DeleteRecordAsync(record.ToModel());
+            await LoadRecordsAsync();
+        }
+
+        private Task OnRecordTappedCommandAsync(RecordViewModel record)
+        {
+            var parameters = new NavigationParameters()
+            {
+                { Constants.Navigation.DIRECTION_VIEW_MODEL,Direction.ToModel() },
+                { Constants.Navigation.RECORD_VIEW_MODEL, record.ToModel() }
+            };
+
+            return NavigationService.NavigateAsync(nameof(AddEditRecordPage), parameters);
+        }
+
+        #endregion
     }
 }

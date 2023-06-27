@@ -95,7 +95,9 @@ namespace Monoregion.App.ViewModels
             {
                 Record.CreationTime = DateTime.Now;
                 _isEditMode = true;
-                await _recordsService.AddRecordAsync(Record.ToModel());
+                var createdRecord = await _recordsService.AddRecordAsync(Record.ToModel());
+
+                Record = createdRecord.ToViewModel(null, null);
             }
         }
     }

@@ -9,6 +9,8 @@ namespace Monoregion.App
             public const string DIRECTION_VIEW_MODEL = nameof(DIRECTION_VIEW_MODEL);
 
             public const string RECORD_VIEW_MODEL = nameof(RECORD_VIEW_MODEL);
+
+            public const string SYNC_DATABASE_CONFIRMED = nameof(SYNC_DATABASE_CONFIRMED);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Monoregion.App.Services.RecordService
 {
     public interface IRecordsService
     {
-        Task<bool> AddRecordAsync(RecordModel record);
+        Task<RecordModel> AddRecordAsync(RecordModel record);
 
         Task<bool> UpdateRecordAsync(RecordModel record);
 

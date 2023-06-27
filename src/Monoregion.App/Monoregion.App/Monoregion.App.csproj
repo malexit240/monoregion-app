@@ -14,12 +14,20 @@
 
   <ItemGroup>
     <None Remove="configuration.json" />
+    <None Remove="Resources\Montserrat_Bold.ttf" />
+    <None Remove="Resources\Montserrat_Medium.ttf" />
+    <None Remove="Resources\Montserrat_Regular.ttf" />
+    <None Remove="Resources\Montserrat_SemiBold.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="configuration.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Montserrat_Bold.ttf" />
+    <EmbeddedResource Include="Resources\Montserrat_Medium.ttf" />
+    <EmbeddedResource Include="Resources\Montserrat_Regular.ttf" />
+    <EmbeddedResource Include="Resources\Montserrat_SemiBold.ttf" />
   </ItemGroup>
 
   <ItemGroup>

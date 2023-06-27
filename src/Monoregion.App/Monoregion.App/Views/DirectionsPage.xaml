@@ -105,7 +105,7 @@
 
                 </Frame>
 
-                <Label Text="{Binding DbVersion}"
+                <Label Text="Placeholder"
                        TextColor="{DynamicResource White}"
                        FontSize="16"
                        VerticalOptions="Center"

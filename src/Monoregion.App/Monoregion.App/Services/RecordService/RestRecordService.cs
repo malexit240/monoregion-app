@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Datasync.Client;
 using Microsoft.EntityFrameworkCore;
@@ -19,16 +16,23 @@ namespace Monoregion.App.Services.RecordService
             _client = client;
         }
 
-        public async Task<bool> AddRecordAsync(RecordModel record)
+        public async Task<RecordModel> AddRecordAsync(RecordModel record)
         {
-            await _client.PerformOfflineTableOperation<RecordModel>(t => t.InsertItemAsync(record));
-
-            return true;
+            return await _client.PerformOfflineTableOperation<RecordModel, RecordModel>(
+                async t =>
+                {
+                    await t.InsertItemAsync(record);
+                    return record;
+                });
         }
 
         public async Task<bool> DeleteRecordAsync(RecordModel record)
         {
-            await _client.PerformOfflineTableOperation<RecordModel>(t => t.DeleteItemAsync(record));
+            await _client.PerformOfflineTableOperation<RecordModel>(
+                t =>
+                {
+                    return t.DeleteItemAsync(record);
+                });
 
             return true;
         }
@@ -45,13 +49,7 @@ namespace Monoregion.App.Services.RecordService
         {
             await _client.PerformOfflineTableOperation<RecordModel>(async t =>
             {
-                try
-                {
-                    await t.ReplaceItemAsync(record);
-                }
-                catch (Exception ex)
-                {
-                }
+                await t.ReplaceItemAsync(record);
             });
 
             return true;

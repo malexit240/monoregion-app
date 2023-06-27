@@ -1,9 +1,9 @@
 ﻿using Monoregion.App.Entites;
-using System;
 using System.Windows.Input;
 
 namespace Monoregion.App.Extensions
 {
+
     public static class RecordModelExtension
     {
         public static RecordViewModel ToViewModel(this RecordModel model, ICommand tappedCommand, ICommand deleteTappedCommand)

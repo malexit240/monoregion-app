@@ -50,34 +50,4 @@ namespace Monoregion.App.ViewModels
             await NavigationService.GoBackAsync();
         }
     }
-
-    public class RestoreDBAlertPopupPageViewModel : BaseViewModel
-    {
-        public RestoreDBAlertPopupPageViewModel(
-            INavigationService navigationService)
-            : base(navigationService)
-        {
-        }
-
-        private ICommand _OkTappedCommand;
-        public ICommand OkTappedCommand => SingleExecutionCommand.FromFunc(OnOkTappedCommandAsync);
-
-        private ICommand _CancelTappedCommand;
-        public ICommand CancelTappedCommand => SingleExecutionCommand.FromFunc(OnCancelTappedCommandAsync);
-
-        private async Task OnOkTappedCommandAsync()
-        {
-            using (var context = new DatabaseContext())
-            {
-                await context.RestoreDBAsync();
-            }
-
-            await NavigationService.GoBackAsync();
-        }
-
-        private async Task OnCancelTappedCommandAsync()
-        {
-            await NavigationService.GoBackAsync();
-        }
-    }
 }

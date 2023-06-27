@@ -16,18 +16,17 @@ namespace Monoregion.App.Helpers
             return result;
         }
 
-        public static async Task PullTablesAsync(this DatasyncClient client)
-        {
-            await client.GetOfflineTable<DirectionModel>().PullItemsAsync();
-            await client.GetOfflineTable<RecordModel>().PullItemsAsync();
-            //await client.GetOfflineTable<GlobalEnvironmentVariable>().PullItemsAsync();
-        }
-
         public static async Task PerformOfflineTableOperation<T>(this DatasyncClient client, Func<IOfflineTable<T>, Task> operationToPerform)
         {
             var table = client.GetOfflineTable<T>();
 
             await operationToPerform(table);
+        }
+
+        public static async Task PullTablesAsync(this DatasyncClient client)
+        {
+            await client.GetOfflineTable<DirectionModel>().PullItemsAsync();
+            await client.GetOfflineTable<RecordModel>().PullItemsAsync();
         }
     }
 }
