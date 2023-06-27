@@ -12,6 +12,6 @@ namespace Monoregion.App.Services.RecordService
 
         Task<bool> DeleteRecordAsync(RecordModel record);
 
-        Task<List<RecordModel>> GetRecordsForDirectionAsync(DirectionModel direction);
+        Task<List<RecordModel>> GetRecordsForDirectionAsync(string directionId);
     }
 }

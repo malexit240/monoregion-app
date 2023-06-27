@@ -12,8 +12,8 @@ namespace Monoregion.App.Entites
             DeleteTappedCommand = deleteTappedCommand;
         }
 
-        private Guid _id;
-        public Guid Id
+        private string _id;
+        public string Id
         {
             get => _id;
             set => SetProperty(ref _id, value);
@@ -40,8 +40,8 @@ namespace Monoregion.App.Entites
             set => SetProperty(ref _creationTime, value);
         }
 
-        private Guid _directionModelid;
-        public Guid DirectionModelId
+        private string _directionModelid;
+        public string DirectionModelId
         {
             get => _directionModelid;
             set => SetProperty(ref _directionModelid, value);

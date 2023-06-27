@@ -14,9 +14,16 @@ namespace Monoregion.Web
         {
             SQLitePCL.Batteries_V2.Init();
 
-            if (Database.EnsureCreated() && Database.IsSqlite())
+            try
             {
-                InstallTriggersOnUpdate();
+                if (Database.EnsureCreated() && Database.IsSqlite())
+                {
+                    InstallTriggersOnUpdate();
+                }
+            }
+            catch (Exception)
+            {
+                System.Diagnostics.Debug.WriteLine("DB exception");
             }
         }
 
@@ -70,7 +77,10 @@ namespace Monoregion.Web
 
                 if (entry.State == EntityState.Added)
                 {
-                    tableData.Id = Guid.NewGuid().ToString();
+                    if (string.IsNullOrWhiteSpace(tableData.Id))
+                    {
+                        tableData.Id = Guid.NewGuid().ToString("N");
+                    }
                 }
                 else if (entry.State == EntityState.Deleted)
                 {

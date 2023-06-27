@@ -38,7 +38,6 @@ namespace Monoregion.App.ViewModels
             {
                 await _directionService.AddDirectionAsync(new DirectionModel()
                 {
-                    Id = System.Guid.NewGuid(),
                     Name = Name,
                 });
 

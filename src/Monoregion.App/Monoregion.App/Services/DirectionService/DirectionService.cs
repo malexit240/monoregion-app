@@ -2,17 +2,17 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Monoregion.App.Entites;
-using Monoregion.App.Services.SystemsService;
+using Monoregion.App.Services.EnvironmentVariableService;
 
 namespace Monoregion.App.Services.DirectionService
 {
     public class DirectionService : IDirectionService
     {
-        private readonly ISystemsService _systemsService;
+        private readonly IEnvironmentVariableService _environmentVariableService;
 
-        public DirectionService(ISystemsService systemsService)
+        public DirectionService(IEnvironmentVariableService environmentVariableService)
         {
-            _systemsService = systemsService;
+            _environmentVariableService = environmentVariableService;
         }
 
         public async Task<bool> AddDirectionAsync(DirectionModel direction)
@@ -24,7 +24,7 @@ namespace Monoregion.App.Services.DirectionService
                 await context.SaveChangesAsync();
             }
 
-            await _systemsService.CommitNewDBVersion();
+            await _environmentVariableService.CommitNewDBVersion();
 
             return true;
         }
@@ -58,7 +58,7 @@ namespace Monoregion.App.Services.DirectionService
                 await context.SaveChangesAsync();
             }
 
-            await _systemsService.CommitNewDBVersion();
+            await _environmentVariableService.CommitNewDBVersion();
 
             return true;
         }

@@ -8,6 +8,8 @@ namespace Monoregion.App
     {
         public string DbSourceFileName { get; set; }
 
+        public string ServiceUri { get; set; }
+
         private static Configuration _instance;
         public static Configuration Instance
         {

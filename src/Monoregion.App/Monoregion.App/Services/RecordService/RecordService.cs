@@ -31,11 +31,12 @@ namespace Monoregion.App.Services.RecordService
             return true;
         }
 
-        public Task<List<RecordModel>> GetRecordsForDirectionAsync(DirectionModel direction)
+        public Task<List<RecordModel>> GetRecordsForDirectionAsync(string directionId)
         {
             using (var context = new DatabaseContext())
             {
-                return context.Records.Where(r => r.DirectionModelId == direction.Id).ToListAsync();
+                var res = context.Records.Where(r => r.DirectionModelId == directionId).ToListAsync();
+                return res;
             }
         }
 

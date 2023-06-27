@@ -11,7 +11,7 @@ namespace Monoregion.Web.Entities
 
         public DateTime CreationTime { get; set; }
 
-        public Guid DirectionModelId { get; set; }
+        public string DirectionModelId { get; set; }
 
         public DirectionModel DirectionModel { get; set; }
     }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Monoregion.App.Services.SystemsService
+namespace Monoregion.App.Services.EnvironmentVariableService
 {
-    public interface ISystemsService
+    public interface IEnvironmentVariableService
     {
         Task SetAsync(string key, string value);
 

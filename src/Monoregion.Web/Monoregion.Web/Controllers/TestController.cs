@@ -12,19 +12,24 @@ namespace Monoregion.Web.Controllers
         }
 
         [HttpGet("api/test")]
-        public async Task<GlobalEnvironmentVariable> DoSome()
+        public async Task<string> GetSome()
         {
-            var variable = new GlobalEnvironmentVariable()
+            return "some result";
+        }
+
+        [HttpPost("api/test")]
+        public async Task<DirectionModel> DoSome()
+        {
+            var direction = new DirectionModel()
             {
-                Key = "Priority",
-                Value = "3",
+                Name = "My title",
             };
 
-            _context.GlobalEnvironmentVariables.Add(variable);
+            _context.Directions.Add(direction);
 
             await _context.SaveChangesAsync();
 
-            return variable;
+            return direction;
         }
     }
 }

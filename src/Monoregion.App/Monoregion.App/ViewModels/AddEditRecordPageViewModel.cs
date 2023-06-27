@@ -5,7 +5,6 @@ using Monoregion.App.Entites;
 using Monoregion.App.Extensions;
 using Monoregion.App.Helpers;
 using Monoregion.App.Services.RecordService;
-using Monoregion.App.Services.SystemsService;
 using Prism.Navigation;
 using Xamarin.Forms;
 
@@ -14,20 +13,17 @@ namespace Monoregion.App.ViewModels
     public class AddEditRecordPageViewModel : BaseViewModel
     {
         private readonly IRecordsService _recordsService;
-        private readonly ISystemsService _systemsService;
 
         private DirectionModel _direction;
-        private bool _isEditingMode;
+        private bool _isEditMode;
         private bool _isTimerAlive = true;
 
         public AddEditRecordPageViewModel(
             INavigationService navigationService,
-            IRecordsService recordsService,
-            ISystemsService systemsService)
+            IRecordsService recordsService)
             : base(navigationService)
         {
             _recordsService = recordsService;
-            _systemsService = systemsService;
 
             Device.StartTimer(TimeSpan.FromSeconds(45), () =>
             {
@@ -57,7 +53,7 @@ namespace Monoregion.App.ViewModels
 
             if (parameters.TryGetValue<RecordModel>(Constants.Navigation.RECORD_VIEW_MODEL, out var record))
             {
-                _isEditingMode = true;
+                _isEditMode = true;
                 Record = record.ToViewModel(null, null);
             }
 
@@ -65,11 +61,10 @@ namespace Monoregion.App.ViewModels
             {
                 _direction = direction;
 
-                if (!_isEditingMode)
+                if (!_isEditMode)
                 {
                     Record = new RecordViewModel(null, null)
                     {
-                        Id = Guid.NewGuid(),
                         DirectionModelId = _direction.Id,
                         CreationTime = DateTime.Now,
                     };
@@ -86,28 +81,22 @@ namespace Monoregion.App.ViewModels
 
         private async Task OnSaveTappedCommandAsync()
         {
-            bool hasOwnName = !string.IsNullOrEmpty(Record.Name);
+            bool hasOwnName = !string.IsNullOrWhiteSpace(Record.Name);
             if (!hasOwnName)
             {
                 Record.Name = Record.Id.ToString().Substring(0, 4);
             }
 
-            if (_isEditingMode)
+            if (_isEditMode)
             {
                 await _recordsService.UpdateRecordAsync(Record.ToModel());
             }
             else
             {
                 Record.CreationTime = DateTime.Now;
-                _isEditingMode = true;
+                _isEditMode = true;
                 await _recordsService.AddRecordAsync(Record.ToModel());
             }
-
-            if (hasOwnName)
-            {
-                await _systemsService.CommitNewDBVersion();
-            }
         }
-
     }
 }

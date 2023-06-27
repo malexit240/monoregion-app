@@ -37,10 +37,10 @@ namespace Monoregion.App.ViewModels
         }
 
         private ICommand _AddRecordTappedCommand;
-        public ICommand AddRecordTappedCommand =>  SingleExecutionCommand.FromFunc(OnAddRecordTappedCommandAsync);
+        public ICommand AddRecordTappedCommand => SingleExecutionCommand.FromFunc(OnAddRecordTappedCommandAsync);
 
         private ICommand _RecordTappedCommand;
-        public ICommand RecordTappedCommand =>  SingleExecutionCommand.FromFunc<RecordViewModel>(OnRecordTappedCommandAsync);
+        public ICommand RecordTappedCommand => SingleExecutionCommand.FromFunc<RecordViewModel>(OnRecordTappedCommandAsync);
 
         private ICommand _DeleteRecordTappedCommand;
         public ICommand DeleteRecordTappedCommand => SingleExecutionCommand.FromFunc<RecordViewModel>(OnDeleteRecordTappedCommandAsync);
@@ -101,17 +101,18 @@ namespace Monoregion.App.ViewModels
 
         private async Task LoadRecordsAsync()
         {
-            var directions = await _directionService.GetAllDirectionsAsync();
+            var records = await _recordsService.GetRecordsForDirectionAsync(Direction.Id);
+            //var directions = await _directionService.GetAllDirectionsAsync();
 
-            Direction = directions.FirstOrDefault(d => d.Id == Direction.Id).ToViewModel(null, null);
+            //Direction = directions.FirstOrDefault(d => d.Id == Direction.Id).ToViewModel(null, null);
 
-            Direction.Records = new ObservableCollection<RecordViewModel>(Direction.Records.OrderByDescending(r => r.CreationTime));
+            Direction.Records = new ObservableCollection<RecordViewModel>(records.OrderByDescending(r => r.CreationTime).Select(r => r.ToViewModel(RecordTappedCommand, DeleteRecordTappedCommand)));
 
-            foreach (var record in Direction.Records)
-            {
-                record.TappedCommand = RecordTappedCommand;
-                record.DeleteTappedCommand = DeleteRecordTappedCommand;
-            }
+            //foreach (var record in Direction.Records)
+            //{
+            //    record.TappedCommand = RecordTappedCommand;
+            //    record.DeleteTappedCommand = DeleteRecordTappedCommand;
+            //}
         }
     }
 }

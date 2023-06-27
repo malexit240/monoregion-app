@@ -2,6 +2,8 @@ namespace Monoregion.Web;
 
 using Microsoft.AspNetCore.Datasync;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
+
 public class Program
 {
     public static void Main(string[] args)
@@ -18,6 +20,9 @@ public class Program
         builder.Services.AddDatasyncControllers();
 
         var app = builder.Build();
+
+        app.UseHttpsRedirection();
+        app.UseHsts();
 
         app.UseRouting();
 

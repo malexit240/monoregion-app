@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monoregion.App.Android", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monoregion.App.iOS", "Monoregion.App.iOS\Monoregion.App.iOS.csproj", "{D80677B3-D546-43FF-89B9-934710F4FFDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monoregion.App", "Monoregion.App\Monoregion.App.csproj", "{91EA7D29-7448-44C7-A2E2-33B7111284D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monoregion.App", "Monoregion.App\Monoregion.App.csproj", "{91EA7D29-7448-44C7-A2E2-33B7111284D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

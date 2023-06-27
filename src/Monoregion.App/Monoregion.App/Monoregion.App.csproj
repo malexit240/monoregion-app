@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+    <UserSecretsId>e54b9334-56d4-49e9-8d52-e03860d74d3e</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,16 +23,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.32" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.32" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Prism.Unity.Forms" Version="8.1.97" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="6.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Datasync.Client">
+      <HintPath>..\..\..\..\..\Users\HeadEshel\Downloads\a\a\sdk\dotnet\src\Microsoft.Datasync.Client\bin\Debug\netstandard2.0\Microsoft.Datasync.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Datasync.Client.SQLiteStore">
+      <HintPath>..\..\..\..\..\Users\HeadEshel\Downloads\a\a\sdk\dotnet\src\Microsoft.Datasync.Client.SQLiteStore\bin\Debug\netstandard2.0\Microsoft.Datasync.Client.SQLiteStore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

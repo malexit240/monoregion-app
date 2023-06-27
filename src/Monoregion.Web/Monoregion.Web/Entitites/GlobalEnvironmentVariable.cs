@@ -6,7 +6,7 @@ namespace Monoregion.Web.Entities
     {
         public DataStatusObject()
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString("N");
         }
     }
 

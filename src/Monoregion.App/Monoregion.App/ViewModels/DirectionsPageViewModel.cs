@@ -6,27 +6,33 @@ using System.Windows.Input;
 using Prism.Navigation;
 using Xamarin.Forms;
 using Monoregion.App.Services.DirectionService;
-using Monoregion.App.Services.SystemsService;
+using Monoregion.App.Services.EnvironmentVariableService;
 using Monoregion.App.Entites;
 using Monoregion.App.Helpers;
 using Monoregion.App.Extensions;
 using Monoregion.App.Views;
+using Microsoft.Datasync.Client;
+using Monoregion.App.Helpers;
+using System.Net.Http;
 
 namespace Monoregion.App.ViewModels
 {
     public class DirectionsPageViewModel : BaseViewModel
     {
         private readonly IDirectionService _directionService;
-        private readonly ISystemsService _systemsService;
+        private readonly IEnvironmentVariableService _systemsService;
+        private readonly DatasyncClient _client;
 
         public DirectionsPageViewModel(
             INavigationService navigationService,
             IDirectionService directionService,
-            ISystemsService systemsService)
+            IEnvironmentVariableService systemsService,
+            DatasyncClient client)
             : base(navigationService)
         {
             _directionService = directionService;
             _systemsService = systemsService;
+            _client = client;
         }
 
         #region -- Public Properties --
@@ -55,17 +61,16 @@ namespace Monoregion.App.ViewModels
 
         public ICommand RestoreDBCommand => SingleExecutionCommand.FromFunc(OnRestoreDBCommandAsync);
 
-        private Task OnRestoreDBCommandAsync()
+        private async Task OnRestoreDBCommandAsync()
         {
-            return NavigationService.NavigateAsync(nameof(RestoreDBAlertPopupPage), useModalNavigation: true);
+            await _client.PullTablesAsync();
+
+            await LoadDirectionsAsync();
         }
 
-        private Task OnMakeBackUpCommandAsync()
+        private async Task OnMakeBackUpCommandAsync()
         {
-            using (var context = new DatabaseContext())
-            {
-                return context.BackupDBAsync();
-            }
+            await _client.PushTablesAsync();
         }
 
         #endregion
@@ -91,7 +96,7 @@ namespace Monoregion.App.ViewModels
                 await LoadDirectionsAsync();
             }
 
-            await LoadDBVersionAsync();
+            //await LoadDBVersionAsync();
 
             _wasInitializeCalled = false;
         }
@@ -126,7 +131,7 @@ namespace Monoregion.App.ViewModels
 
         private async Task LoadDBVersionAsync()
         {
-            DbVersion = int.Parse(await _systemsService.GetAsync("DB_VERSION", "0"));
+            //DbVersion = int.Parse(await _systemsService.GetAsync("DB_VERSION", "0"));
         }
 
         #endregion

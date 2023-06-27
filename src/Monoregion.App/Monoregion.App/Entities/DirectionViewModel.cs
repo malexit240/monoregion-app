@@ -13,8 +13,8 @@ namespace Monoregion.App.Entites
             DeleteTappedCommand = deleteTappedCommand;
         }
 
-        private Guid _id;
-        public Guid Id
+        private string _id;
+        public string Id
         {
             get => _id;
             set => SetProperty(ref _id, value);
