@@ -82,7 +82,7 @@ namespace Monoregion.App.ViewModels
 
         private Task OnRefreshDbCommandAsync()
         {
-            return NavigationService.NavigateAsync(nameof(RestoreDBAlertPopupPage), useModalNavigation: true);
+            return NavigationService.NavigateAsync(nameof(DBSyncConfirmationPopupPage), useModalNavigation: true);
         }
 
 

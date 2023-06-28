@@ -73,13 +73,14 @@
 
         </Frame>
 
-        <Image Source="icon"
+        <Image Source="icon.png"
                Opacity="0.2"
                VerticalOptions="Start"
                HorizontalOptions="Center"
                InputTransparent="True"
                Margin="0, -24, 0, 0"
-               WidthRequest="48"/>
+               WidthRequest="48"
+               HeightRequest="48"/>
 
     </Grid>
 

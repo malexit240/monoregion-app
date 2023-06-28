@@ -16,7 +16,7 @@ namespace Monoregion.App.ViewModels
 
         private DirectionModel _direction;
         private bool _isEditMode;
-        private bool _isTimerAlive = true;
+        private bool _isTimerAlive;
 
         public AddEditRecordPageViewModel(
             INavigationService navigationService,
@@ -24,17 +24,6 @@ namespace Monoregion.App.ViewModels
             : base(navigationService)
         {
             _recordsService = recordsService;
-
-            Device.StartTimer(TimeSpan.FromSeconds(45), () =>
-            {
-                if (_isTimerAlive)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Saved {this.Record.Name}");
-                    OnSaveTappedCommandAsync();
-                }
-
-                return _isTimerAlive;
-            });
         }
 
         private RecordViewModel _record;
@@ -70,6 +59,8 @@ namespace Monoregion.App.ViewModels
                     };
                 }
             }
+
+            StartAvtosaveTimer();
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
@@ -98,6 +89,23 @@ namespace Monoregion.App.ViewModels
                 var createdRecord = await _recordsService.AddRecordAsync(Record.ToModel());
 
                 Record = createdRecord.ToViewModel(null, null);
+            }
+        }
+
+        private void StartAvtosaveTimer()
+        {
+            if (!_isTimerAlive)
+            {
+                _isTimerAlive = true;
+                Device.StartTimer(TimeSpan.FromSeconds(45), () =>
+                {
+                    if (_isTimerAlive)
+                    {
+                        OnSaveTappedCommandAsync();
+                    }
+
+                    return _isTimerAlive;
+                });
             }
         }
     }

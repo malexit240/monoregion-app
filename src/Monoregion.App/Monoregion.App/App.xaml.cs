@@ -28,7 +28,7 @@ namespace Monoregion.App
             containerRegistry.RegisterForNavigation<RecordsPage, RecordsPageViewModel>();
             containerRegistry.RegisterForNavigation<AddEditRecordPage, AddEditRecordPageViewModel>();
             containerRegistry.RegisterForNavigation<AddDirectionPopupPage, AddDirectionPopupPageViewModel>();
-            containerRegistry.RegisterForNavigation<RestoreDBAlertPopupPage, RestoreDBAlertPopupPageViewModel>();
+            containerRegistry.RegisterForNavigation<DBSyncConfirmationPopupPage, DBSyncConfirmationPopupViewModel>();
 
             containerRegistry.RegisterInstance<DatasyncClient>(DatasyncClientHelper.GetDatasyncClient());
             containerRegistry.RegisterInstance<IDirectionService>(Container.Resolve<RestDirectionService>());

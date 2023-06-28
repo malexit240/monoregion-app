@@ -16,14 +16,14 @@
 
         <StackLayout Spacing="6">
 
-            <Label Text="Добавить раздел"
+            <Label Text="Додати розділ"
                    Style="{DynamicResource tstyle_i1}"/>
 
             <BoxView Color="{DynamicResource Gray}"
                      Margin="-12, 0"
                      HeightRequest="1"/>
 
-            <Entry Placeholder="Название"
+            <Entry Placeholder="Назва"
                    Text="{Binding Name}"
                    Style="{DynamicResource tstyle_i1}"
                    WidthRequest="240"/>
@@ -32,11 +32,11 @@
                      Margin="-12, 0"
                      HeightRequest="1"/>
 
-            <Grid ColumnSpacing="0"
+            <Grid ColumnSpacing="12"
                   WidthRequest="240"
-                  ColumnDefinitions="*, *">
+                  ColumnDefinitions="0.7*, 0.3*">
 
-                <Button Text="Отмена"
+                <Button Text="Скасувати"
                         Style="{DynamicResource tstyle_i1}"
                         TextTransform="None"
                         Command="{Binding CancelTappedCommand}"
@@ -56,7 +56,6 @@
                         CornerRadius="6"
                         Margin="0"
                         TextTransform="None"
-                        HorizontalOptions="EndAndExpand"
                         Grid.Column="1"/>
 
             </Grid>

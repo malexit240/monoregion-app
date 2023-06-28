@@ -64,7 +64,7 @@
                Margin="48, 24"
                CornerRadius="35"
                Padding="1"
-               BackgroundColor="#20000000"
+               BackgroundColor="#10000000"
                BorderColor="{DynamicResource Gray}">
 
             <StackLayout Orientation="Horizontal">
@@ -78,36 +78,20 @@
                        Padding="0">
 
                     <Button BackgroundColor="{DynamicResource Primary}"
-                            Text="⏏︎"
+                            ImageSource="sync.png"
                             Padding="0"
-                            TextTransform="None"
-                            TextColor="{DynamicResource White}"
-                            Rotation="180"
+                            Margin="0"
+                            CornerRadius="35"
+                            Rotation="0"
                             FontSize="36"
                             Command="{Binding MakeBackUpCommand}"/>
-
-                </Frame>
-
-                <Frame VerticalOptions="Center"
-                       HorizontalOptions="End"
-                       HeightRequest="50"
-                       WidthRequest="50"
-                       CornerRadius="25"
-                       BackgroundColor="{DynamicResource Primary}"
-                       Padding="0">
-
-                    <Button BackgroundColor="{DynamicResource Primary}"
-                            Text="⏏︎"
-                            TextColor="{DynamicResource White}"
-                            FontSize="28"
-                            Padding="0"
-                            Command="{Binding RestoreDBCommand}"/>
 
                 </Frame>
 
                 <Label Text="Placeholder"
                        TextColor="{DynamicResource White}"
                        FontSize="16"
+                       IsVisible="false"
                        VerticalOptions="Center"
                        HorizontalOptions="Start"/>
 
@@ -129,13 +113,14 @@
 
         </Frame>
 
-        <Image Source="icon"
+        <Image Source="icon.png"
                Opacity="0.2"
                VerticalOptions="Start"
                HorizontalOptions="Center"
                InputTransparent="True"
                Margin="0, -24, 0, 0"
-               WidthRequest="48"/>
+               WidthRequest="48"
+               HeightRequest="48"/>
 
     </Grid>
 

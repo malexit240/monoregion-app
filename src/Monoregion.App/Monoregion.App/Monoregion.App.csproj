@@ -57,6 +57,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\DBSyncConfirmationPopupPage.xaml.cs">
+      <DependentUpon>DBSyncConfirmationPopupPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Views\AddDirectionPopupPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -69,7 +75,7 @@
     <EmbeddedResource Update="Views\RecordsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RestoreDBAlertPopupPage.xaml">
+    <EmbeddedResource Update="Views\DBSyncConfirmationPopupPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

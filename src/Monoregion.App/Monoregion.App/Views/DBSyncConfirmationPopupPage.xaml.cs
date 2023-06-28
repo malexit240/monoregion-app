@@ -1,8 +1,8 @@
 ﻿namespace Monoregion.App.Views
 {
-    public partial class RestoreDBAlertPopupPage
+    public partial class DBSyncConfirmationPopupPage
     {
-        public RestoreDBAlertPopupPage()
+        public DBSyncConfirmationPopupPage()
         {
             InitializeComponent();
         }

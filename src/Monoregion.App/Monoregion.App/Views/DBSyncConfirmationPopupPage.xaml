@@ -2,7 +2,7 @@
 <views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:Monoregion.App.Views"
-                       x:Class="Monoregion.App.Views.RestoreDBAlertPopupPage"
+                       x:Class="Monoregion.App.Views.DBSyncConfirmationPopupPage"
                        BackgroundColor="Transparent">
 
     <Frame Padding="12"
@@ -14,18 +14,18 @@
 
         <StackLayout Spacing="6">
 
-            <Label Text="Восстановить БД?"
+            <Label Text="Синхронізувати БД?"
                    Style="{DynamicResource tstyle_i1}"/>
 
             <BoxView Color="{DynamicResource Gray}"
                      Margin="-12, 0"
                      HeightRequest="1"/>
 
-            <Grid ColumnSpacing="0"
+            <Grid ColumnSpacing="12"
                   WidthRequest="240"
                   ColumnDefinitions="*, *">
 
-                <Button Text="Нет"
+                <Button Text="Ні"
                         Style="{DynamicResource tstyle_i1}"
                         TextTransform="None"
                         Command="{Binding CancelTappedCommand}"
@@ -36,7 +36,7 @@
                         BorderWidth="1"
                         Grid.Column="0"/>
 
-                <Button Text="Да"
+                <Button Text="Так"
                         Command="{Binding OkTappedCommand}"
                         Style="{DynamicResource tstyle_i1}"
                         BackgroundColor="{DynamicResource White}"
@@ -45,7 +45,6 @@
                         CornerRadius="6"
                         Margin="0"
                         TextTransform="None"
-                        HorizontalOptions="EndAndExpand"
                         Grid.Column="1"/>
 
             </Grid>

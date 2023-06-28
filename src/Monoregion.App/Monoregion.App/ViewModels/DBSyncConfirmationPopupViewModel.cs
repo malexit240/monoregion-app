@@ -5,9 +5,9 @@ using Prism.Navigation;
 
 namespace Monoregion.App.ViewModels
 {
-    public class RestoreDBAlertPopupPageViewModel : BaseViewModel
+    public class DBSyncConfirmationPopupViewModel : BaseViewModel
     {
-        public RestoreDBAlertPopupPageViewModel(
+        public DBSyncConfirmationPopupViewModel(
             INavigationService navigationService)
             : base(navigationService)
         {
