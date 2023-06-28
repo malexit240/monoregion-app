@@ -1,16 +1,7 @@
-﻿using Microsoft.AspNetCore.Datasync.EFCore;
-
-namespace Monoregion.Web.Entities
+﻿namespace Monoregion.Web.Entities
 {
-    public abstract class DataStatusObject : EntityTableData
-    {
-        public DataStatusObject()
-        {
-            Id = Guid.NewGuid().ToString("N");
-        }
-    }
 
-    public class GlobalEnvironmentVariable : DataStatusObject
+    public class GlobalEnvironmentVariable : BaseDataStatusObject
     {
         public string Key { get; set; }
 

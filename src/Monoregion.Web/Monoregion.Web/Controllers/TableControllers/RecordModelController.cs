@@ -16,19 +16,8 @@ namespace Monoregion.Web.Controllers.TableControllers
 
         public override async Task<IActionResult> ReplaceAsync([FromRoute] string id, [FromBody] RecordModel item, CancellationToken token = default)
         {
-            try
-            {
-                //var storedEntity = await this.Repository.ReadAsync(id);
-                await Repository.ReplaceAsync(item);
-                //item.Version = storedEntity.Version;
-                //var result = await base.ReplaceAsync(id, item, token);
-                return Ok(item);
-            }
-            catch (Exception ex)
-            {
-            }
-
-            return Ok();
+            await Repository.ReplaceAsync(item);
+            return Ok(item);
         }
     }
 }

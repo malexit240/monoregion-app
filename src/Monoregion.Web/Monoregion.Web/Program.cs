@@ -2,7 +2,7 @@ namespace Monoregion.Web;
 
 using Microsoft.AspNetCore.Datasync;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.Extensions.Configuration;
 
 public class Program
 {
@@ -14,7 +14,8 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite("Filename=monoregion.db"));
+        // TODO: use other db provider
+        builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         builder.Services.AddControllers();
         builder.Services.AddDatasyncControllers();

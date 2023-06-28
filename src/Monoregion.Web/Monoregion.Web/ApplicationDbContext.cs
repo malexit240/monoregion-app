@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Datasync.EFCore;
+﻿using System.Text;
+using Microsoft.AspNetCore.Datasync.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Monoregion.Web.Entities;
-using System.Text;
+using Monoregion.Web.Helpers;
 
 namespace Monoregion.Web
 {
@@ -12,19 +13,7 @@ namespace Monoregion.Web
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
-            SQLitePCL.Batteries_V2.Init();
-
-            try
-            {
-                if (Database.EnsureCreated() && Database.IsSqlite())
-                {
-                    InstallTriggersOnUpdate();
-                }
-            }
-            catch (Exception)
-            {
-                System.Diagnostics.Debug.WriteLine("DB exception");
-            }
+            InitializeForSqlite();
         }
 
         public DbSet<DirectionModel> Directions { get; set; }
@@ -35,20 +24,10 @@ namespace Monoregion.Web
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            var timestampProps = builder.Model.GetEntityTypes().SelectMany(t => t.GetProperties())
-                .Where(p => p.ClrType == typeof(byte[]) && p.ValueGenerated == ValueGenerated.OnAddOrUpdate);
-            var converter = new ValueConverter<byte[], string>(
-                v => Encoding.UTF8.GetString(v),
-                v => Encoding.UTF8.GetBytes(v)
-            );
-            foreach (var property in timestampProps)
-            {
-                property.SetValueConverter(converter);
-                property.SetDefaultValueSql("STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW')");
-            }
+            ConfigureVersionFields(builder);
+
             base.OnModelCreating(builder);
         }
-
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
@@ -66,26 +45,41 @@ namespace Monoregion.Web
 
         private void UpdateTrackedEntitites()
         {
-            var entries = ChangeTracker.Entries().Where(e => e.Entity is EntityTableData).ToList();
-
-            var dateTimeNow = DateTime.UtcNow;
+            var entries = ChangeTracker.Entries().Where(e => e.Entity is EntityTableData);
 
             foreach (var entry in entries)
             {
-                var tableData = entry.Entity as EntityTableData;
-                tableData.UpdatedAt = dateTimeNow;
+                var tableRow = entry.Entity as EntityTableData;
+                tableRow.UpdatedAt = DateTime.UtcNow;
 
                 if (entry.State == EntityState.Added)
                 {
-                    if (string.IsNullOrWhiteSpace(tableData.Id))
+                    if (string.IsNullOrWhiteSpace(tableRow.Id))
                     {
-                        tableData.Id = Guid.NewGuid().ToString("N");
+                        tableRow.Id = IdGenerationHelper.GetNext();
                     }
                 }
                 else if (entry.State == EntityState.Deleted)
                 {
-                    tableData.Deleted = true;
+                    tableRow.Deleted = true;
                 }
+            }
+        }
+
+        private void InitializeForSqlite()
+        {
+            SQLitePCL.Batteries_V2.Init();
+
+            try
+            {
+                if (Database.EnsureCreated())
+                {
+                    InstallTriggersOnUpdate();
+                }
+            }
+            catch (Exception)
+            {
+                System.Diagnostics.Debug.WriteLine("DB exception");
             }
         }
 
@@ -93,22 +87,45 @@ namespace Monoregion.Web
         {
             foreach (var table in Model.GetEntityTypes())
             {
-                var props = table.GetProperties().Where(prop => prop.ClrType == typeof(byte[]) && prop.ValueGenerated == ValueGenerated.OnAddOrUpdate);
-                foreach (var property in props)
+                var properties = table.GetProperties().Where(p => p.ClrType == typeof(byte[]) && p.ValueGenerated == ValueGenerated.OnAddOrUpdate);
+
+                foreach (var property in properties)
                 {
-                    var sql = $@"
-                 CREATE TRIGGER s_{table.GetTableName()}_{property.Name}_UPDATE AFTER UPDATE ON  {table.GetTableName()}
-                 BEGIN
-                     UPDATE {table.GetTableName()}
-                     SET {property.Name} = STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW')
-                     WHERE rowid = NEW.rowid;
-                 END
-             ";
+                    var sql = GetTriggerSqlQuery(table, property);
+
                     Database.ExecuteSqlRaw(sql);
                 }
             }
 
             SaveChangesAsync();
+        }
+
+        private void ConfigureVersionFields(ModelBuilder builder)
+        {
+            var timestampProperties = builder.Model.GetEntityTypes().SelectMany(t => t.GetProperties())
+                .Where(p => p.ClrType == typeof(byte[]) && p.ValueGenerated == ValueGenerated.OnAddOrUpdate);
+
+            var converter = new ValueConverter<byte[], string>(
+                v => Encoding.UTF8.GetString(v),
+                v => Encoding.UTF8.GetBytes(v)
+            );
+            foreach (var property in timestampProperties)
+            {
+                property.SetValueConverter(converter);
+                property.SetDefaultValueSql("STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW')");
+            }
+        }
+
+        private string GetTriggerSqlQuery(IEntityType table, IProperty property)
+        {
+            return $@"
+    CREATE TRIGGER s_{table.GetTableName()}_{property.Name}_UPDATE 
+    AFTER   UPDATE ON  {table.GetTableName()}
+        BEGIN
+            UPDATE {table.GetTableName()}
+            SET {property.Name} = STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW')
+            WHERE rowid = NEW.rowid;
+        END";
         }
     }
 }

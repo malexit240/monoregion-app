@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Monoregion.Web.Entities
 {
-    public class DirectionModel : DataStatusObject
+    public class DirectionModel : BaseDataStatusObject
     {
         public string Name { get; set; }
 

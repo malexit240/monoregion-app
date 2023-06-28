@@ -3,7 +3,7 @@ using System;
 
 namespace Monoregion.Web.Entities
 {
-    public class RecordModel : DataStatusObject
+    public class RecordModel : BaseDataStatusObject
     {
         public string Name { get; set; }
 
