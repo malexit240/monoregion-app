@@ -49,10 +49,10 @@
 
   <ItemGroup>
     <Reference Include="Microsoft.Datasync.Client">
-      <HintPath>..\..\..\..\..\Users\HeadEshel\Downloads\a\a\sdk\dotnet\src\Microsoft.Datasync.Client\bin\Debug\netstandard2.0\Microsoft.Datasync.Client.dll</HintPath>
+      <HintPath>libs\Microsoft.Datasync.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Datasync.Client.SQLiteStore">
-      <HintPath>..\..\..\..\..\Users\HeadEshel\Downloads\a\a\sdk\dotnet\src\Microsoft.Datasync.Client.SQLiteStore\bin\Debug\netstandard2.0\Microsoft.Datasync.Client.SQLiteStore.dll</HintPath>
+      <HintPath>libs\Microsoft.Datasync.Client.SQLiteStore.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -12,21 +12,17 @@ namespace Monoregion.App.Helpers
         {
             var options = new DatasyncClientOptions()
             {
-                OfflineStore = GetOfflineStore(),
+                OfflineStore = GetConfiguredOfflineStore(),
             };
 
             var client = new DatasyncClient(Configuration.Instance.ServiceUri, options);
 
-            // TODO: add task source complete binding
-            Task.Run(async () =>
-            {
-                await client.InitializeOfflineStoreAsync();
-            }).Wait();
+            client.InitializeOfflineStoreAsync().ContinueWith(t => DatasyncOperationsHelper.SetWetherDatasyncInitializationCompleted(true));
 
             return client;
         }
 
-        private static OfflineSQLiteStore GetOfflineStore()
+        private static OfflineSQLiteStore GetConfiguredOfflineStore()
         {
             var store = new OfflineSQLiteStore(GetPathForLocalDB());
 
