@@ -8,6 +8,34 @@ public class Program
 {
     public static void Main(string[] args)
     {
+
+        var app = GetBuildedApplication(args);
+
+        ConfigureMiddlewares(app);
+
+        app.Run();
+    }
+
+    private static void ConfigureMiddlewares(WebApplication app)
+    {
+        app.UseHttpsRedirection();
+        app.UseHsts();
+
+        app.UseRouting();
+
+        app.UseAuthorization();
+
+        app.MapDefaultControllerRoute();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+    }
+
+    private static WebApplication GetBuildedApplication(string[] args)
+    {
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddAuthorization();
@@ -20,26 +48,6 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddDatasyncControllers();
 
-        var app = builder.Build();
-
-        app.UseHttpsRedirection();
-        app.UseHsts();
-
-        app.UseRouting();
-
-        app.UseAuthorization();
-
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapDefaultControllerRoute();
-        });
-
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
-        app.Run();
+        return builder.Build();
     }
 }
