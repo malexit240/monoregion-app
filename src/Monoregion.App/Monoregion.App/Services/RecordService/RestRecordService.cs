@@ -11,9 +11,9 @@ namespace Monoregion.App.Services.RecordService
     {
         private readonly DatasyncClient _client;
 
-        public RestRecordService(DatasyncClient client)
+        public RestRecordService()
         {
-            _client = client;
+            _client = DatasyncClientHelper.GetDatasyncClient();
         }
 
         public async Task<RecordModel> AddRecordAsync(RecordModel record)

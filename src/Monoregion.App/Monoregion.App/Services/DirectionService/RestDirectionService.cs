@@ -11,9 +11,9 @@ namespace Monoregion.App.Services.DirectionService
     {
         private readonly DatasyncClient _client;
 
-        public RestDirectionService(DatasyncClient client)
+        public RestDirectionService()
         {
-            _client = client;
+            _client = DatasyncClientHelper.GetDatasyncClient();
         }
 
         public async Task<bool> AddDirectionAsync(DirectionModel direction)

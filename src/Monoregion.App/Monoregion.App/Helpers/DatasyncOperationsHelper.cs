@@ -59,7 +59,7 @@ namespace Monoregion.App.Helpers
 
         public static void SetWetherDatasyncInitializationCompleted(bool state)
         {
-            _isInitializationCompleted.SetResult(state);
+            _isInitializationCompleted.TrySetResult(state);
         }
     }
 }

@@ -15,16 +15,15 @@ namespace Monoregion.App.ViewModels
     public class DirectionsPageViewModel : BaseViewModel
     {
         private readonly IDirectionService _directionService;
-        private readonly DatasyncClient _client;
+        private DatasyncClient _client;
 
         public DirectionsPageViewModel(
             INavigationService navigationService,
-            IDirectionService directionService,
-            DatasyncClient client)
+            IDirectionService directionService)
             : base(navigationService)
         {
             _directionService = directionService;
-            _client = client;
+            _client = DatasyncClientHelper.GetDatasyncClient();
         }
 
         #region -- Public Properties --
@@ -105,6 +104,8 @@ namespace Monoregion.App.ViewModels
 
         private async Task RefreshDbCommandAsync()
         {
+            _client = DatasyncClientHelper.GetDatasyncClient();
+
             try
             {
                 await _client.PushTablesAsync();

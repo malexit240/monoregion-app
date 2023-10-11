@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
+using Xamarin.Essentials;
 
 namespace Monoregion.App
 {
@@ -8,7 +9,11 @@ namespace Monoregion.App
     {
         public string DbSourceFileName { get; set; }
 
-        public string ServiceUri { get; set; }
+        public string ServiceUri
+        {
+            get => Preferences.Get("serviceUri", "http://192.168.0.105");
+            set => Preferences.Set("serviceUri", value);
+        }
 
         private static Configuration _instance;
         public static Configuration Instance

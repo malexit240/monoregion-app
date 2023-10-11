@@ -5,7 +5,6 @@ using Monoregion.App.Views;
 using Monoregion.App.ViewModels;
 using Monoregion.App.Services.DirectionService;
 using Monoregion.App.Services.RecordService;
-using Monoregion.App.Helpers;
 
 namespace Monoregion.App
 {
@@ -30,7 +29,6 @@ namespace Monoregion.App
             containerRegistry.RegisterForNavigation<AddDirectionPopupPage, AddDirectionPopupPageViewModel>();
             containerRegistry.RegisterForNavigation<DBSyncConfirmationPopupPage, DBSyncConfirmationPopupViewModel>();
 
-            containerRegistry.RegisterInstance<DatasyncClient>(DatasyncClientHelper.GetDatasyncClient());
             containerRegistry.RegisterInstance<IDirectionService>(Container.Resolve<RestDirectionService>());
             containerRegistry.RegisterInstance<IRecordsService>(Container.Resolve<RestRecordService>());
         }

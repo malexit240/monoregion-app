@@ -16,7 +16,12 @@ namespace Monoregion.Web.Controllers.TableControllers
 
         public override async Task<IActionResult> ReplaceAsync([FromRoute] string id, [FromBody] DirectionModel item, CancellationToken token = default)
         {
-            await Repository.ReplaceAsync(item);
+            var storedDirectory = await Repository.ReadAsync(id);
+            if (storedDirectory.UpdatedAt < item.UpdatedAt)
+            {
+                await Repository.ReplaceAsync(item);
+            }
+
             return Ok(item);
         }
     }

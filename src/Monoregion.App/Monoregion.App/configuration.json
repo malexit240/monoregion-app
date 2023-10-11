@@ -1,4 +1,3 @@
 {
-  "DbSourceFileName": "dev.sqlite",
-  "ServiceUri": "http://192.168.86.41:5005"
+  "DbSourceFileName": "dev.sqlite"
 }
