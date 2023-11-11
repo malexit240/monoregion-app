@@ -29,34 +29,44 @@ Here developed application for notes. Not multi-usered but with synchronization 
 
 ### Screens of application:
 
-Add diretion on UWP
+Add diretion on UWP 
+
 ![add direction on uwp screen](images/AddDirectionUWP.png)
 
 List of directions
-![list of directions on uwp screen](images/DiretionsPageUWP.png)
+
+![list of directions on uwp screen](images/DirectionsPageUWP.png)
 
 Write record
+
 ![add/edit record on uwp screen](images/AddEditPageUWP.png)
 
 List of records
+
 ![list of records on uwp screen](images/RecordsPageUWP.png)
 
 Confirm and run synchronization
+
 ![confirm and run synchronization popup on uwp](images/ConfirmSyncUWP.png)
 
 Add direction on mobile
+
 ![add direction on mobile screen](images/AddDirectionMobile.jpg)
 
 Run syncronization on mobile also
+
 ![confirm and run synchronization popup on mobile](images/ConfirmSyncMobile.jpg)
 
 List of directions
+
 ![list of directions on mobile screen](images/DirectionsPageMobile.jpg)
 
 Write record
+
 ![add/edit record on mobile screen](images/AddEditPageMobile.jpg)
 
 List of records
+
 ![list of records on mobile screen](images/RecordsPageMobile.jpg)
 
 ### Negative moments:
